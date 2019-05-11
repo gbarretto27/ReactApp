@@ -1,24 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import {Card, CardImg, CardImgOverlay, CardText, CardBody,
+import {Card, CardImg, CardText, CardBody,
   CardTitle} from 'reactstrap';
 
-class DishDetail extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        selectedDish: null
-    }
-  }
 
-  onDishSelect(dish) {
-    this.setState({selectedDish: dish});
-  }
 
-  renderDish(dish) {
-      if (dish != null)
-          return(
-              <div className="col-12 col-md-5 m-1">
+  function RenderDish ({dish}) {
+          return (
+            <div className="col-12 col-md-5 m-1">
                 <Card>
                     <CardImg top src={dish.image} alt={dish.name} />
                     <CardBody>
@@ -26,18 +15,13 @@ class DishDetail extends Component {
                       <CardText>{dish.description}</CardText>
                     </CardBody>
                 </Card>
-              </div>
-          );
-      else
-          return(
-              <div></div>
+            </div>
           );
   }
 
-  renderComments(dish) {
-
-      if (dish != null) {
-          const comm = dish.comments.map(comment => {
+  function RenderComments({comments}) {
+        if (comments) {
+          const comm = comments.map(comment => {
             return (
               <li key={comment.id}>
                 <p>{comment.comment}</p>
@@ -50,7 +34,7 @@ class DishDetail extends Component {
                     }).format(new Date(Date.parse(comment.date)))}
                 </p>
               </li>
-            )
+            );
           })
           return(
             <div className="col-12 col-md-5 m-1">
@@ -60,27 +44,31 @@ class DishDetail extends Component {
               </ul>
             </div>
           );
-      }
-      else
-          return(
-              <div></div>
+        } else {
+          return (
+            <div></div>
           );
-  }
-  render () {
-    const dish = this.props.dish;
-    const dishSelected = this.renderDish(dish);
-    const commentSelected = this.renderComments(dish);
-    return (
-      <div className="container">
-        <div className="row">
-          {dishSelected}
-          {commentSelected}
-        </div>
-      </div>
-    );
+        }
   }
 
-}
+  const DishDetail = (props) => {
+    if (props.dish) {
+      return (
+
+        <div className="container">
+          <div className="row">
+              <RenderDish dish={props.dish} />
+              <RenderComments comments={props.dish.comments} />
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div></div>
+      );
+    }
+  }
+
 
 
 

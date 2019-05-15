@@ -22,7 +22,7 @@ import { Link } from 'react-router-dom';
           );
   }
 
-  function RenderComments({comments}) {
+  function RenderComments({comments, addComment, dishId}) {
         if (comments) {
           const comm = comments.map(comment => {
             return (
@@ -44,7 +44,7 @@ import { Link } from 'react-router-dom';
               <h4>Comments</h4>
               <ul className='list-unstyled'>
                 {comm}
-                <CommentForm />
+                <CommentForm dishId={dishId} addComment={addComment} />
               </ul>
             </div>
           );
@@ -74,7 +74,8 @@ import { Link } from 'react-router-dom';
               <RenderDish dish={props.dish} />
             </div>
             <div className="col-12 col-md-5 m-1">
-              <RenderComments comments={props.comments} />
+              <RenderComments comments={props.comments} addComment={props.addComment}
+                dishId={props.dish.id} />
             </div>
           </div>
         </div>

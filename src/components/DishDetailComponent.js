@@ -1,4 +1,5 @@
 import React from 'react';
+import CommentForm from './CommentForm';
 
 import { Card, CardImg, CardText, CardBody,
     CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
@@ -9,7 +10,7 @@ import { Link } from 'react-router-dom';
 
   function RenderDish ({dish}) {
           return (
-            <div className="col-12 col-md-5 m-1">
+            <div>
                 <Card>
                     <CardImg top src={dish.image} alt={dish.name} />
                     <CardBody>
@@ -39,10 +40,11 @@ import { Link } from 'react-router-dom';
             );
           })
           return(
-            <div className="col-12 col-md-5 m-1">
+            <div>
               <h4>Comments</h4>
               <ul className='list-unstyled'>
                 {comm}
+                <CommentForm />
               </ul>
             </div>
           );
@@ -68,8 +70,12 @@ import { Link } from 'react-router-dom';
             </div>
           </div>
           <div className="row">
+            <div className="col-12 col-md-5 m-1">
               <RenderDish dish={props.dish} />
+            </div>
+            <div className="col-12 col-md-5 m-1">
               <RenderComments comments={props.comments} />
+            </div>
           </div>
         </div>
       );
